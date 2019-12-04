@@ -94,6 +94,7 @@ public class Schedule extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -123,15 +124,23 @@ public class Schedule extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
 
+        jLabel12.setText("jLabel12");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 233, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 213, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -141,7 +150,7 @@ public class Schedule extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,6 +233,11 @@ public class Schedule extends javax.swing.JFrame {
         jLabel7.setText("Haircut");
 
         cmbx_haircut.setModel(new DefaultComboBoxModel(al_haircut.toArray()));
+        cmbx_haircut.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cmbx_haircutPropertyChange(evt);
+            }
+        });
 
         sf_start_min.setMaximum(59);
         sf_start_min.setMinimum(0);
@@ -241,10 +255,10 @@ public class Schedule extends javax.swing.JFrame {
             }
         });
         sf_start_hour.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 sf_start_hourInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         sf_start_hour.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -561,6 +575,25 @@ public class Schedule extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_cancelActionPerformed
 
+    private void cmbx_haircutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbx_haircutPropertyChange
+        String cut = cmbx_haircut.getSelectedItem().toString();
+        
+        
+        try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery("Select image from haircut where name ='" + cut + "'"))
+        {
+            ResultSetMetaData md = rs.getMetaData();
+            while (rs.next())
+            {
+                
+            }
+        } catch (Exception e) {
+            System.out.println( e.getMessage() );
+        }
+        
+    }//GEN-LAST:event_cmbx_haircutPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -605,6 +638,7 @@ public class Schedule extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
