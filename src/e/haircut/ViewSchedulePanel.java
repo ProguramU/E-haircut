@@ -43,7 +43,7 @@ public class ViewSchedulePanel extends JPanel{
         int dateNowString = Integer.parseInt(dateFormat.format(dateNow));
         
         System.out.println(dateNowString);
-        
+//        
         String sql = "SELECT * FROM schedules where date_scheduled='" + dateNowString + "'";
         
         // Java SE 7 has try-with-resources
@@ -61,7 +61,6 @@ public class ViewSchedulePanel extends JPanel{
             {
                 columnNames.add( md.getColumnName(i) );
             }
-
             //  Get row data
             while (rs.next())
             {
@@ -71,7 +70,6 @@ public class ViewSchedulePanel extends JPanel{
                 {
                     row.add( rs.getObject(i) );
                 }
-
                 data.add( row );
             }
         }
