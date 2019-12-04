@@ -44,7 +44,7 @@ public class ViewSchedulePanel extends JPanel{
         
         System.out.println(dateNowString);
 //        
-        String sql = "SELECT * FROM schedules where date_scheduled='" + dateNowString + "'";
+        String sql = "SELECT * FROM schedule where date_scheduled='" + dateNowString + "'";
         
         // Java SE 7 has try-with-resources
         // This will ensure that the sql objects are closed when the program 

@@ -12,7 +12,7 @@ package e.haircut;
 public class EHaircut {
     
     //  Connect to an MySQL Database, run query, get result set
-        public static String url = "jdbc:mysql://localhost:3306/e-haircut";
+        public static String url = "jdbc:mysql://localhost:3306/e-haircut?serverTimezone=UTC";
         public static String userid = "root";
         public static String password = "";
         
