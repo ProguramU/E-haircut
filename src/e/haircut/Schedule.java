@@ -53,7 +53,7 @@ public class Schedule extends javax.swing.JFrame {
         //adding from database to here
         try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
                 Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("Select * from hairstylists"))
+                ResultSet rs = stmt.executeQuery("Select * from hairstylist"))
         {
             ResultSetMetaData md = rs.getMetaData();
             while (rs.next())
@@ -69,7 +69,7 @@ public class Schedule extends javax.swing.JFrame {
     public void haircut_init(){
         try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
                 Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("Select * from haircut"))
+                ResultSet rs = stmt.executeQuery("Select * from haircuts"))
         {
             ResultSetMetaData md = rs.getMetaData();
             while (rs.next())
@@ -94,7 +94,7 @@ public class Schedule extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        lbl_image = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -124,7 +124,7 @@ public class Schedule extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel12.setText("jLabel12");
+        lbl_image.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -132,14 +132,14 @@ public class Schedule extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(lbl_image, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addComponent(lbl_image, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -476,7 +476,7 @@ public class Schedule extends javax.swing.JFrame {
       boolean  bool_sched_conflict = false;
       try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
                 Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("Select * from schedules where date_scheduled='"+ storingDate + "'"))
+                ResultSet rs = stmt.executeQuery("Select * from schedule where date_scheduled='"+ storingDate + "'"))
         {
             ResultSetMetaData md = rs.getMetaData();
             while (rs.next())
@@ -512,7 +512,7 @@ public class Schedule extends javax.swing.JFrame {
       if(bool_sched_conflict == false){
           try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
                 Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("Select * From schedules"))
+                ResultSet rs = stmt.executeQuery("Select * From schedule"))
         {
             int maxID = 0;
             
@@ -523,11 +523,11 @@ public class Schedule extends javax.swing.JFrame {
  
             System.out.println("MAX ID = " + maxID);
             //storing to databse  
-             stmt.executeUpdate("INSERT INTO schedules VALUES (" + (maxID+1) + 
+             stmt.executeUpdate("INSERT INTO schedule VALUES (" + (maxID+1) + 
                      ",'" + storingName + "','" + storingContact + "', '"+
                      storingDate + "', " + (storingTimeStart+"00") + ", " + 
-                     (storingTimeEnd+"00") + ", '" + storingHaircut + "', " +
-                     1 + ");");  
+                     (storingTimeEnd+"00") + ", '" + storingHaircut + "', '" + storingStylist + "');");
+             
              System.out.println("new entry added to database with id of " + (maxID+1));
         } catch (Exception e) {
             System.out.println( e.getMessage() );
@@ -577,6 +577,7 @@ public class Schedule extends javax.swing.JFrame {
 
     private void cmbx_haircutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbx_haircutPropertyChange
         String cut = cmbx_haircut.getSelectedItem().toString();
+         
         
         
         try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
@@ -638,7 +639,6 @@ public class Schedule extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -652,6 +652,7 @@ public class Schedule extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel lbl_image;
     private com.toedter.components.JSpinField sf_fin_hour;
     private com.toedter.components.JSpinField sf_fin_min;
     private com.toedter.components.JSpinField sf_start_hour;
