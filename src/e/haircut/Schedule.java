@@ -6,6 +6,7 @@
 package e.haircut;
 
 //import java.sql.Date;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -233,6 +235,11 @@ public class Schedule extends javax.swing.JFrame {
         jLabel7.setText("Haircut");
 
         cmbx_haircut.setModel(new DefaultComboBoxModel(al_haircut.toArray()));
+        cmbx_haircut.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbx_haircutItemStateChanged(evt);
+            }
+        });
         cmbx_haircut.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 cmbx_haircutPropertyChange(evt);
@@ -255,10 +262,10 @@ public class Schedule extends javax.swing.JFrame {
             }
         });
         sf_start_hour.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 sf_start_hourInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         sf_start_hour.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -576,24 +583,36 @@ public class Schedule extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cancelActionPerformed
 
     private void cmbx_haircutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbx_haircutPropertyChange
+        
+        
+    }//GEN-LAST:event_cmbx_haircutPropertyChange
+
+    private void cmbx_haircutItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbx_haircutItemStateChanged
         String cut = cmbx_haircut.getSelectedItem().toString();
-         
         
-        
+        System.out.println("property changed");
+   
         try(Connection connection = DriverManager.getConnection( EHaircut.url, EHaircut.userid, EHaircut.password);
                 Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("Select image from haircut where name ='" + cut + "'"))
+                ResultSet rs = stmt.executeQuery("Select image from haircuts where name ='" + cut + "'"))
         {
             ResultSetMetaData md = rs.getMetaData();
             while (rs.next())
             {
-                
+                //get the image from database and place it on jlabel
+                byte[] img = rs.getBytes("image");
+                ImageIcon image = new ImageIcon(img);
+                Image im = image.getImage();
+                Image myImage = im.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                ImageIcon newImage = new ImageIcon(myImage);
+                lbl_image.setIcon(newImage);
             }
         } catch (Exception e) {
             System.out.println( e.getMessage() );
         }
         
-    }//GEN-LAST:event_cmbx_haircutPropertyChange
+        lbl_image.revalidate();
+    }//GEN-LAST:event_cmbx_haircutItemStateChanged
 
     /**
      * @param args the command line arguments
