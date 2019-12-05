@@ -27,8 +27,7 @@ public class Driver {
             }catch(Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
-                
-            
+
             return conn;
         }
 }
