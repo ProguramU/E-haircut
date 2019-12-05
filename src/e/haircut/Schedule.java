@@ -465,9 +465,9 @@ public class Schedule extends javax.swing.JFrame {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
           int storingDate = Integer.parseInt(dateFormat.format(inputDate));
           //time start
-          String storingTimeStart = String.valueOf(sf_start_hour.getValue()) + String.valueOf(sf_start_min.getValue());
+          String storingTimeStart = String.format("%02d%02d",sf_start_hour.getValue(), sf_start_min.getValue());
           //time end
-          String storingTimeEnd = String.valueOf(sf_fin_hour.getValue()) + String.valueOf(sf_fin_min.getValue());
+          String storingTimeEnd = String.format("%02d%02d",sf_fin_hour.getValue(), sf_fin_min.getValue());
           //stylist
           String storingStylist = cmbx_stylist.getSelectedItem().toString();
           
